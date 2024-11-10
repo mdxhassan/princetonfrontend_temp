@@ -1,23 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+// src/App.js
+import React, { useState } from 'react';
+import PatientForm from './components/PatientForm';
+import DoctorForm from './components/DoctorForm';
 
 function App() {
+  // Step state: 1 for PatientForm, 2 for DoctorForm
+  const [step, setStep] = useState(1);
+
+  // Function to go to the next step
+  const goToNextStep = () => {
+    setStep(step + 1);
+  };
+
+  // Function to go to the previous step
+  const goToPreviousStep = () => {
+    setStep(step - 1);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {step === 1 && <PatientForm goToNextStep={goToNextStep} />}
+      {step === 2 && <DoctorForm goToPreviousStep={goToPreviousStep} />}
     </div>
   );
 }
